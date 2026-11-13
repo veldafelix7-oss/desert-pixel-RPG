@@ -1,0 +1,6 @@
+{
+  "appId": "com.desertpixel.rpg",
+  "appName": "Desert Pixel RPG",
+  "webDir": "dist",
+  "android": { "backgroundColor": "#171e1d" }
+}
