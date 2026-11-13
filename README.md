@@ -61,12 +61,14 @@ Untuk Chromium yang sudah tersedia, gunakan `CHROMIUM_PATH=/path/to/chromium npm
 
 ## APK Android dari HP melalui GitHub Actions
 
-Workflow `.github/workflows/android.yml` sudah disiapkan. **Menambahkan workflow belum berarti APK sudah berhasil dibangun.** Setelah perubahan tersedia di GitHub pada branch kerja:
+**APK uji coba sudah tersedia:** [unduh dari GitHub Release v0.1.0-preview.2](https://github.com/veldafelix7-oss/desert-pixel-RPG/releases/tag/v0.1.0-preview.2). Pilih berkas `.apk` pada Assets, bukan Source code. Lihat [panduan instalasi dan batasan](docs/RELEASE-NOTES.md).
+
+Untuk membangun ulang melalui workflow `.github/workflows/android.yml`:
 
 1. Buka tab **Actions** pada repo melalui browser HP.
 2. Pilih **Build Android debug APK → Run workflow** dan branch kerja ini.
 3. Tunggu berhasil, lalu unduh artifact **desert-pixel-rpg-debug**.
-4. Ekstrak ZIP dan instal `app-debug.apk`. Izinkan pemasangan dari sumber tersebut hanya jika kamu mempercayai build-nya.
+4. Ekstrak ZIP dan instal `desert-pixel-rpg-0.1.0-debug.apk`. Izinkan pemasangan dari sumber tersebut hanya jika kamu mempercayai build-nya.
 
 Workflow memakai Node 22, Java 21, Android SDK, unit test, web build, Capacitor sync, dan Gradle `assembleDebug`. Tidak membutuhkan signing secret untuk **debug build**. Kuota Actions mengikuti akun GitHub. Build lokal membutuhkan Android SDK 35 dan Java 21:
 
@@ -78,7 +80,7 @@ cd android
 
 Output: `android/app/build/outputs/apk/debug/app-debug.apk`.
 
-**Status verifikasi:** web build, unit test dan pengujian browser dijalankan di lingkungan pengembangan. Native Android/APK belum diverifikasi pada perangkat. Tidak ada Android SDK lengkap di lingkungan ini; build APK perlu dilakukan melalui Actions atau mesin dengan SDK.
+**Status verifikasi:** web build, unit test dan pengujian browser dijalankan di lingkungan pengembangan. [GitHub Actions run 43476285653](https://github.com/veldafelix7-oss/desert-pixel-RPG/actions/runs/43476285653) berhasil membangun APK dan memverifikasi tanda tangannya dengan `apksigner`. APK sudah diunggah sebagai pre-release, tetapi **belum diuji pada HP fisik**. Workflow menggunakan SDK bawaan runner Ubuntu 24.04; penanda `[preview-release]` pada pesan commit push menerbitkan pre-release setelah build berhasil.
 
 **Penting:** debug key runner dapat berbeda antar-build, sehingga APK debug berikutnya mungkin tidak dapat dipasang sebagai update. Jangan hapus instalasi yang berisi progres penting untuk memaksakan update. Distribusi berkelanjutan memerlukan signing key tetap yang dikelola aman; ini belum disiapkan. Jangan memasukkan keystore/password ke Git.
 
